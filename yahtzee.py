@@ -67,6 +67,7 @@ def keuzeFunc(dobbelList):
     print("                 Chance")
     keuze = input("Aan welke combinatie wilt u de score van uw dobbelstenen toevoegen?").lower()
     dobbelList.sort()
+    dobbeltotal = dobbelList[0] + dobbelList[1] + dobbelList[2] + dobbelList[3] + dobbelList[4]
     if keuze == "1":
         y = 0
         for x in range(5):
@@ -116,25 +117,32 @@ def keuzeFunc(dobbelList):
         scoresDict.update({"6" : score6new})
         scorebericht(keuze)
     elif keuze == "three of a kind":
-        toakFunc()
+        if dobbelList[0] == dobbelList[2] or dobbelList[1] == dobbelList[3] or dobbelList[2] == dobbelList[4]:
+            toaknew = scoresDict["three of a kind"] + dobbeltotal
+        scoresDict.update({"three of a kind" : toaknew})
     elif keuze == "four of a kind":
-        foakFunc()
+        if dobbelList[0] == dobbelList[3] or dobbelList[1] == dobbelList[4]:
+            foaknew = scoresDict["four of a kind"] + dobbeltotal
+        scoresDict.update({"four of a kind" : foaknew})
     elif keuze == "full house":
         if dobbelList[0] == dobbelList[1] and dobbelList[2] == dobbelList[4] or dobbelList[0] == dobbelList[2] and dobbelList[3] == dobbelList[4]:
-            fhnew = scoresDict["fullhouse"] + 25
+            fhnew = scoresDict["full house"] + 25
+        scoresDict.update({"full house" : fhnew})
     elif keuze == "small straight":
         if dobbelList[0] == dobbelList[3] or dobbelList[1] == dobbelList[4]:
-            smallnew = scoresDict["smallstraight"] + 30
+            smallnew = scoresDict["small straight"] + 30
+        scoresDict.update({"small straight" : smallnew})
     elif keuze == "large straight":
         if dobbelList[4] == dobbelList[0]+4:
-            largenew = scoresDict["largestraight"] + 40
+            largenew = scoresDict["large straight"] + 40
+        scoresDict.update({"large straight" : largenew})
     elif keuze == "yahtzee":
         if dobbelList[0] == dobbelList[4]:
             yahtzeescore = scoresDict["yahtzee"] + 50
             scoresDict.update({"yahtzee" : yahtzeescore})
         scorebericht(keuze)
     elif keuze == "chance":
-        chancescore = scoresDict["chance"] + dobbelList[0] + dobbelList[1] + dobbelList[2] + dobbelList[3] + dobbelList[4]
+        chancescore = scoresDict["chance"] + dobbeltotal
         scoresDict.update({"chance" : chancescore})
         scorebericht(keuze)
     else:
