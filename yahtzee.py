@@ -75,7 +75,6 @@ def keuzeFunc(dobbelList):
         score1new = scoresDict["1"] + y
         scoresDict.update({"1" : score1new})
         scorebericht(keuze)
-        roll()
     elif keuze == "2":
         y = 0
         for x in range(5):
@@ -83,8 +82,7 @@ def keuzeFunc(dobbelList):
                 y+=2
         score2new = scoresDict["2"] + y
         scoresDict.update({"2" : score2new})
-        print(scorebericht)
-        roll()
+        scorebericht(keuze)
     elif keuze == "3":
         y = 0
         for x in range(5):
@@ -92,8 +90,7 @@ def keuzeFunc(dobbelList):
                 y+=3
         score3new = scoresDict["3"] + y
         scoresDict.update({"3" : score3new})
-        print(scorebericht)
-        roll()
+        scorebericht(keuze)
     elif keuze == "4":
         y = 0
         for x in range(5):
@@ -101,8 +98,7 @@ def keuzeFunc(dobbelList):
                 y+=4
         score4new = scoresDict["4"] + y
         scoresDict.update({"4" : score4new})
-        print(scorebericht)
-        roll()
+        scorebericht(keuze)
     elif keuze == "5":
         y = 0
         for x in range(5):
@@ -110,8 +106,7 @@ def keuzeFunc(dobbelList):
                 y+=5
         score5new = scoresDict["5"] + y
         scoresDict.update({"5" : score5new})
-        print(scorebericht)
-        roll()
+        scorebericht(keuze)
     elif keuze == "6":
         y = 0
         for x in range(5):
@@ -119,8 +114,7 @@ def keuzeFunc(dobbelList):
                 y+=6
         score6new = scoresDict["6"] + y
         scoresDict.update({"6" : score6new})
-        print(scorebericht)
-        roll()
+        scorebericht(keuze)
     elif keuze == "three of a kind":
         toakFunc()
     elif keuze == "four of a kind":
@@ -132,24 +126,23 @@ def keuzeFunc(dobbelList):
         if dobbelList[0] == dobbelList[3] or dobbelList[1] == dobbelList[4]:
             smallnew = scoresDict["smallstraight"] + 30
     elif keuze == "large straight":
-        if dobbelList[3] == dobbelList[0]+3 or dobbelList[4] == dobbelList[1]+3:
+        if dobbelList[4] == dobbelList[0]+4:
             largenew = scoresDict["largestraight"] + 40
     elif keuze == "yahtzee":
         if dobbelList[0] == dobbelList[4]:
             yahtzeescore = scoresDict["yahtzee"] + 50
             scoresDict.update({"yahtzee" : yahtzeescore})
-        print(f'uw score voor yahtzee is nu: {scoresDict["yahtzee"]}')
-        roll()
+        scorebericht(keuze)
     elif keuze == "chance":
         chancescore = scoresDict["chance"] + dobbelList[0] + dobbelList[1] + dobbelList[2] + dobbelList[3] + dobbelList[4]
         scoresDict.update({"chance" : chancescore})
-        print(f'uw score voor chance is nu: {scoresDict["chance"]}')
-        roll()
+        scorebericht(keuze)
     else:
         print("U heeft geen geldige keuze gemaakt, check of u spelfouten heeft gemaakt.")
         keuzeFunc()
     
 def scorebericht(keuze):
     print(f"uw score voor {keuze} is: {scoresDict[keuze]}")
+    roll()
 
 start()
