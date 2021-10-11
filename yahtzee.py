@@ -17,7 +17,7 @@ scoresDict = {"score1" : 0,
 dobbeldict = {}
 opnieuwaantal = 0
 getallen = [1,2,3,4,5,6]
-
+totaal = 0
 
 def start():
     spelers = int(input("Met hoeveel spelers wilt u het spel spelen?"))
@@ -36,6 +36,7 @@ def roll():
     for x in range(5):
         dobbeldict.update({f"dobbel{x}": getallen[random.randrange(0,6)]})
         print(f'dobbelsteen {x+1} is: {dobbeldict[f"dobbel{x}"]}')
+    opnieuwFunc()
 
 def opnieuwFunc():
     global opnieuwaantal
@@ -64,17 +65,53 @@ def keuzeFunc():
     print("                 Chance")
     keuze = input("Aan welke combinatie wilt u de score van uw dobbelstenen toevoegen?").lower()
     if keuze == "1":
-        eenFunc()
+        y = 0
+        for x in range(5):
+            if dobbeldict[f"dobbel{x}"] == 1:
+                y+=1
+        scoresDict.update({"score1" : y})
+        print(f'Uw score voor 1 is nu: {scoresDict["score1"]}')
+        roll()
     elif keuze == "2":
-        tweeFunc()
+        y = 0
+        for x in range(5):
+            if dobbeldict[f"dobbel{x}"] == 1:
+                y+=1
+        scoresDict.update({"score2" : y})
+        print(f'Uw score voor 2 is nu: {scoresDict["score1"]}')
+        roll()
     elif keuze == "3":
-        drieFunc()
+        y = 0
+        for x in range(5):
+            if dobbeldict[f"dobbel{x}"] == 1:
+                y+=1
+        scoresDict.update({"score3" : y})
+        print(f'Uw score voor 3 is nu: {scoresDict["score1"]}')
+        roll()
     elif keuze == "4":
-        vierFunc()
+        y = 0
+        for x in range(5):
+            if dobbeldict[f"dobbel{x}"] == 1:
+                y+=1
+        scoresDict.update({"score4" : y})
+        print(f'Uw score voor 4 is nu: {scoresDict["score1"]}')
+        roll()
     elif keuze == "5":
-        vijfFunc()
+        y = 0
+        for x in range(5):
+            if dobbeldict[f"dobbel{x}"] == 1:
+                y+=1
+        scoresDict.update({"score5" : y})
+        print(f'Uw score voor 5 is nu: {scoresDict["score1"]}')
+        roll()
     elif keuze == "6":
-        zesFunc()
+        y = 0
+        for x in range(5):
+            if dobbeldict[f"dobbel{x}"] == 1:
+                y+=1
+        scoresDict.update({"score6" : y})
+        print(f'Uw score voor 6 is nu: {scoresDict["score1"]}')
+        roll()
     elif keuze == "three of a kind":
         toakFunc()
     elif keuze == "four of a kind":
@@ -86,12 +123,16 @@ def keuzeFunc():
     elif keuze == "large straight":
         largeFunc()
     elif keuze == "yahtzee":
-        yahtzeeFunc()
+        if dobbeldict["dobbel1"] == dobbeldict["dobbel2"] == dobbeldict["dobbel3"] == dobbeldict["dobbel4"] == dobbeldict["dobbel5"]:
+            yahtzeescore = scoresDict["yahtzee"] + 50
+            scoresDict.update({"yahtzee" : yahtzeescore})
+        print(f'uw score voor yahtzee is nu: {scoresDict["yahtzee"]}')
+        roll()
     elif keuze == "chance":
-        chanceFunc()
+        chancescore = scoresDict["chance"] + 50
+        scoresDict.update({"chance" : chancescore})
     else:
         print("U heeft geen geldige keuze gemaakt, check of u spelfouten heeft gemaakt.")
         keuzeFunc()
-
 
 start()

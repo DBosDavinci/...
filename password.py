@@ -27,7 +27,11 @@ def passwordCheck():
         passwordGenerator()
     if passwordList[23] in special_characters:
         passwordGenerator()
-    if numbers in passwordList[0:4]:
+    if passwordList[0] in numbers:
+        passwordGenerator()
+    if passwordList[1] in numbers:
+        passwordGenerator()
+    if passwordList[2] in numbers:
         passwordGenerator()
 
 passwordGenerator()
