@@ -22,18 +22,26 @@ def start():
     spelers = int(input("Met hoeveel spelers wilt u het spel spelen?"))
     if spelers == 1:
         print("Ok, het spel start met 1 speler")
-        roll()
+        roll(0)
     elif spelers > 1:
         print()
     else:
         print("U moet het spel met minimaal 1 speler starten")
         start()
 
-def roll():
+def roll(apart:list):
     global ronde
     dobbelList = []
     ronde+=1
-    if ronde <= 5:
+    if ronde <= 5 and apart != 0:
+        for x in range(5):
+            if x+1 in apart:
+                continue
+            else:
+                dobbelList[x] = getallen[random.randrange(0,6)]
+                print(f'dobbelsteen {x+1} is: {dobbelList[x]}')
+        opnieuwFunc(dobbelList)
+    elif ronde <= 5 and apart == 0:
         for x in range(5):
             dobbelList.append(getallen[random.randrange(0,6)])
             print(f'dobbelsteen {x+1} is: {dobbelList[x]}')
@@ -49,12 +57,29 @@ def opnieuwFunc(dobbelList):
         opnieuw = input("Wilt u nog een keer rollen? (Y/N)").lower()
         if opnieuw == "y":
             opnieuwaantal+=1
-            roll()
+            apartFunc(dobbelList)
         elif opnieuw == "n":
             keuzeFunc(dobbelList)
         else:
             print("Only answer with Y or N")
             opnieuwFunc()
+
+def apartFunc(dobbelList):
+    apart = input('Wilt u dobbelstenen apart leggen? (Y/N)').lower()
+    if apart == "y":
+        while True:
+            try:
+                apart = input("Welke dobbelstenen wilt u apart leggen? (Geef de dobbelstenen die u apart wilt houden met een komma ertussen; 1,3,4)")
+                apart.split(",")
+                break
+            except:
+                continue
+        roll(apart)
+    elif apart == "n":
+        roll(0)
+    else:
+        print("Only answer with Y or N")
+        apartFunc(dobbelList)
 
 def keuzeFunc(dobbelList):
     print("Bovenste vakken: 1,2,3,4,5,6")
