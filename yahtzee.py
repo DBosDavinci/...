@@ -17,69 +17,78 @@ scoresDict = {"1" : 0,
 getallen = [1,2,3,4,5,6]
 totaal = 0
 opnieuwaantal = 1
+dobbelList = []
+apartList = []
 
 def start():
     spelers = int(input("Met hoeveel spelers wilt u het spel spelen?"))
     if spelers == 1:
         print("Ok, het spel start met 1 speler")
-        roll(0)
+        roll()
     elif spelers > 1:
         print()
     else:
         print("U moet het spel met minimaal 1 speler starten")
         start()
 
-def roll(apart:list):
-    global ronde
-    dobbelList = []
+def roll():
+    global ronde, dobbelList, apartList
     ronde+=1
-    if ronde <= 5 and apart != 0:
+    if ronde <= 5 and apartList:
         for x in range(5):
-            if x+1 in apart:
-                continue
+            if x+1 in apartList:
+                print(f'dobbelsteen {x+1} is: {dobbelList[x]}')
             else:
                 dobbelList[x] = getallen[random.randrange(0,6)]
                 print(f'dobbelsteen {x+1} is: {dobbelList[x]}')
-        opnieuwFunc(dobbelList)
-    elif ronde <= 5 and apart == 0:
+        apartList = []
+        opnieuwFunc()
+    elif ronde <= 5 and not apartList:
         for x in range(5):
             dobbelList.append(getallen[random.randrange(0,6)])
             print(f'dobbelsteen {x+1} is: {dobbelList[x]}')
-        opnieuwFunc(dobbelList)
+        apartList = []
+        opnieuwFunc()
     else:
         totaalFunc()
 
-def opnieuwFunc(dobbelList):
-    global opnieuwaantal
+def opnieuwFunc():
+    global opnieuwaantal,dobbelList
     if opnieuwaantal >= 3:
-        keuzeFunc(dobbelList)
+        keuzeFunc()
     else:
         opnieuw = input("Wilt u nog een keer rollen? (Y/N)").lower()
         if opnieuw == "y":
             opnieuwaantal+=1
-            apartFunc(dobbelList)
+            apartFunc()
         elif opnieuw == "n":
-            keuzeFunc(dobbelList)
+            keuzeFunc()
         else:
             print("Only answer with Y or N")
             opnieuwFunc()
 
-def apartFunc(dobbelList):
+def apartFunc():
+    global dobbelList,apartList
+    apartList = []
     apart = input('Wilt u dobbelstenen apart leggen? (Y/N)').lower()
     if apart == "y":
         while True:
             try:
                 apart = input("Welke dobbelstenen wilt u apart leggen? (Geef de dobbelstenen die u apart wilt houden met een komma ertussen; 1,3,4)")
-                apart.split(",")
+                split = apart.split(",")
+                map_object = map(int, split)
+                apartList = list(map_object)
                 break
             except:
                 continue
-        roll(apart)
+        print(apartList)
+        roll()
     elif apart == "n":
-        roll(0)
+        apartList = []
+        roll()
     else:
         print("Only answer with Y or N")
-        apartFunc(dobbelList)
+        apartFunc()
 
 def keuzeFunc(dobbelList):
     print("Bovenste vakken: 1,2,3,4,5,6")
